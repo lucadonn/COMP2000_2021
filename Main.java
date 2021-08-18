@@ -1,15 +1,11 @@
-import javax.swing.JFrame;
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
-public class Main extends JFrame {
-    public static void main(String[] args) throws Exception {
-        Main window = new Main();
-        //window.run();
-    }
+class Main extends JFrame {
 
-    public class Canvas extends JPanel {
-        public Canvas(){
+    class App extends JPanel {
+
+        public App() {
             setPreferredSize(new Dimension(720, 720));
         }
 
@@ -22,17 +18,32 @@ public class Main extends JFrame {
                     g.fillRect(i, j, 35, 35);
                     g.setColor(Color.BLACK);
                     g.drawRect(i, j, 35, 35);
+                }
             }
-        }
+            if(getMousePosition() != null) {
+                g.setColor(Color.RED);
+                g.fillOval((int)getMousePosition().getX()-5, (int)getMousePosition().getY()-5, 5, 5);
+            }
         }
     }
 
-    public Main() {
+    public static void main(String[] args) throws Exception {
+        Main window = new Main();
+        window.run();
+    }
+
+    private Main() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Canvas canvas = new Canvas();
+        App canvas = new App();
         this.setContentPane(canvas);
         this.pack();
         this.setVisible(true);
+    }
+
+    public void run(){
+        while(true){
+            this.repaint();
+        }
     }
 
 }
